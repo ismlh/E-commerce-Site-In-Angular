@@ -1,0 +1,71 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "Name": "Acer Vivobook S14",
+      "price": 122,
+      "quantity": 2,
+      "catid": "1",
+      "imageUrl": "https://picsum.photos/200/150"
+    },
+    {
+      "id": "2",
+      "Name": "Dell Latitude E6440",
+      "price": 3000,
+      "quantity": 4,
+      "catid": "2",
+      "imageUrl": "https://picsum.photos/200/150"
+    },
+    {
+      "id": "3",
+      "Name": "Hp Product",
+      "price": 44,
+      "quantity": 7,
+      "catid": "3",
+      "imageUrl": "https://picsum.photos/200/150"
+    },
+    {
+      "id": "4",
+      "Name": "Samsung 4",
+      "price": 699,
+      "quantity": 6,
+      "catid": "4",
+      "imageUrl": "https://picsum.photos/200/150"
+    }
+  ],
+  "categories": [
+    {
+      "id": "2",
+      "Name": "Dell"
+    },
+    {
+      "id": "3",
+      "Name": "HP"
+    },
+    {
+      "id": "4",
+      "Name": "Samsung"
+    },
+    {
+      "id": "1",
+      "Name": "Acer"
+    }
+  ],
+  "usersMsgs": [
+    {
+      "id": "1",
+      "Name": "Islam Mohammed",
+      "Email": "is@gmail.com",
+      "Addrees": {
+        "City": "Nasr",
+        "Street": "عباس العقاد"
+      },
+      "Notes": "Im Islam\n",
+      "Phones": [
+        "01027414507",
+        "01041212115",
+        "01041212115"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+<button class="btn btn-outline-success mb-4 form-control " data-bs-toggle="modal" data-bs-target="#exampleModal"> Add
+  New
+  Category</button>
+<table class="table table-hover">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Category Name</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    @for (cat of categories; track cat.id) {
+    <tr>
+
+      <th scope="row">{{cat.id}}</th>
+      <td>{{cat.Name}}</td>
+      <td><button class="btn btn-outline-info form-control" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="Edit(cat.id)">Edit</button></td>
+      <td><button class="btn btn-outline-danger form-control" (click)="deleteCategory(cat.id)">Delete</button></td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+
+
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-center fw-bolder" id="exampleModalLabel">New Category</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #CatForm="ngForm" (ngSubmit)="addNewCategory()">
+          <div class="mb-3">
+            <label for="ID" class="form-label">ID</label>
+            <input type="text" [disabled]="EditButton" class="form-control my-1" placeholder="Category ID" #id="ngModel"
+              pattern="^[0-9]+$" required [(ngModel)]="newCat.id" name="id" />
+            <div *ngIf="id.invalid && id.touched">
+              <div *ngIf="id.errors?.['required']">Category ID is required.</div>
+              <div *ngIf="id.errors?.['pattern']">Category ID must be numeric.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Name" class="form-label">Category Name</label>
+            <input type="text" class="form-control my-1" placeholder="Category Name" #Name="ngModel"
+              pattern="^[a-zA-Z\d\s]{2,20}$" required [(ngModel)]="newCat.Name" name="Name" />
+            <div *ngIf="Name.invalid && Name.touched">
+              <div *ngIf="Name.errors?.['required']">Category Name is required.</div>
+              <div *ngIf="Name.errors?.['pattern']">Category Name must be at least 3 chars and at most 15 digits</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success form-control" [disabled]="CatForm.invalid"
+              data-bs-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-outline-danger form-control" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

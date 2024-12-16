@@ -1,0 +1,13 @@
+<!-- Submit Button -->
+<button class="btn btn-outline-success form-control mb-3" [disabled]="isLogged" (click)="login()">
+  Login
+</button>
+
+<button class="btn btn-outline-success form-control mb-3" [disabled]="!isLogged" (click)="logout()">
+  Logout
+</button>
+
+<!--
+
+
+-->

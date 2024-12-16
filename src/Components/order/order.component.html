@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-6 col-lg-4 col-xl-3 mb-3 " *ngFor="let p of filtedProducts">
+    <!-- [class.d-none]="p.catId!=selectedCatId" class binding -->
+    <div class="card">
+      <!-- appBgBlackDirective="gray" directive
+          -->
+      <!-- [style.background-color]="(p.catId!=1)?'white':'black'" style binding -->
+      <img [src]="p.imageUrl" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Name : {{p.Name}}</h5>
+        <!-- interpolation -->
+        <p class="card-text"> Price : {{p.price | currency:'EUR':'code'}}
+        </p>
+
+        <div [ngSwitch]="p.quantity">
+          <p class="card-text" *ngSwitchCase="1"> Quantity : Last Item
+          <p class="card-text" *ngSwitchCase="2"> Quantity : Last Two Item
+          <p class="card-text" *ngSwitchDefault=""> Quantity : {{p.quantity}}
+          </p>
+        </div>
+
+
+        <p class="card-text"> Category : {{p.catid}}
+        </p>
+        <input type="number" class="form-control" #inputCount><!-- i need to deal with this ele in ts -->
+        <button class="btn btn-success form-control d-block mt-2" (click)="Buy(inputCount,p.price)">Buy</button>
+        <button class="btn btn-info form-control d-block mt-2" (click)="Detalis(p.id)">Product Details</button>
+        <!-- (click)="Buy(inputCount,p.price)" -->
+        <!-- event binding -->
+      </div>
+    </div>
+  </div>
+</div>

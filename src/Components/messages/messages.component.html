@@ -1,0 +1,123 @@
+<table class="table table-hover text-center fw-bold border">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">City</th>
+      <th scope="col">Street</th>
+      <th scope="col">Notes</th>
+      <th scope="col">Phone</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    @for (msg of usersMessages; track msg.id) {
+    <tr>
+
+      <th scope="row">{{msg.id}}</th>
+      <td>{{msg.Name}}</td>
+      <td>{{msg.Email}}</td>
+      <td>{{msg.Addrees.City}}</td>
+      <td>{{msg.Addrees.Street}}</td>
+      <td>{{msg.Notes}}</td>
+      <td><span *ngFor="let phone of msg.Phones" class="d-block">{{phone}}</span></td>
+
+      <td><button class="btn btn-outline-info form-control" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="Edit(msg.id)">Edit</button></td>
+
+
+      <td><button class="btn btn-outline-danger form-control" (click)="deletePrd(msg.id)">Delete</button></td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+
+
+
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-center fw-bolder" id="exampleModalLabel">New Product</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <form #msgForm="ngForm" (ngSubmit)="Save()">
+
+          <div class="mb-3">
+            <label for="ID" class="form-label">ID</label>
+            <input type="text" disabled class="form-control my-1" #id="ngModel" pattern="^[0-9]+$" required
+              [(ngModel)]="userMessage.id" name="id" />
+          </div>
+
+          <div class="mb-3">
+            <label for="Name" class="form-label">User Name</label>
+            <input type="text" class="form-control my-1" placeholder="User Name" #Name="ngModel"
+              pattern="^[a-zA-Z]{3,20}$" required [(ngModel)]="userMessage.Name" name="Name" />
+            <div *ngIf="Name.invalid && Name.touched">
+              <div *ngIf="Name.errors?.['required']">User Name is required.</div>
+              <div *ngIf="Name.errors?.['pattern']">User Name must be at least 3 chars and at most 20 Char</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="Email" class="form-label">User Email</label>
+            <input type="email" class="form-control my-1" placeholder="User Email" #Email="ngModel" required
+              [(ngModel)]="userMessage.Email" name="Email" />
+            <div *ngIf="Email.invalid && Email.touched">
+              <div *ngIf="Email.errors?.['required']">User Email is required.</div>
+              <div *ngIf="Email.errors?.['pattern']">User Email Must Be Valid Email</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="City" class="form-label">User City</label>
+            <input type="text" class="form-control my-1" placeholder="User City" #City="ngModel"
+              pattern="^[a-zA-Z\d\u0600-\u06FF\s]{2,}$" required [(ngModel)]="userMessage['Addrees']['City']"
+              name="City" />
+            <div *ngIf="City.invalid && City.touched">
+              <div *ngIf="City.errors?.['required']">City is required.</div>
+              <div *ngIf="City.errors?.['pattern']">City at Least 2 Char</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="Street" class="form-label">User Street</label>
+            <input type="text" class="form-control my-1" placeholder="User Street" #Street="ngModel"
+              pattern="^[a-zA-Z\d\u0600-\u06FF\s]{2,}$" required [(ngModel)]="userMessage['Addrees']['Street']"
+              name="Street" />
+            <div *ngIf="Street.invalid && Street.touched">
+              <div *ngIf="Street.errors?.['required']">Street is required.</div>
+              <div *ngIf="Street.errors?.['pattern']">Quantity at Least 2 Char</div>
+            </div>
+          </div>
+
+
+          <div class="mb-3">
+            <label for="Notes" class="form-label">User Notes</label>
+            <textarea class="form-control" placeholder="User Notes" #Notes="ngModel" [(ngModel)]="userMessage.Notes"
+              name="Notes" id="Notes" rows="3"></textarea>
+            <div *ngIf="Notes.invalid && Notes.touched">
+              <div *ngIf="Notes.errors?.['required']">Notes is required.</div>
+            </div>
+          </div>
+
+
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success form-control" [disabled]="msgForm.invalid"
+              data-bs-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-outline-danger form-control" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

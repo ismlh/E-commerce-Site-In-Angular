@@ -1,0 +1,104 @@
+<form [formGroup]="userMessageForm" (ngSubmit)="SaveMessage()">
+  <div class="mb-3">
+    <label for="id" class="form-label">ID</label>
+    <input type="text" class="form-control" id="ID" formControlName="id" name="id">
+    @if (id?.touched&&id?.invalid) {
+    <div class="text-danger mt-1">
+      @if (id?.errors?.['required']) {
+      <p>Field Is Required</p>
+      }
+      @if (id?.errors?.['pattern']) {
+      <p>Field Must Be At Least 1 Digit At Most 4 digits</p>
+      }
+    </div>
+    }
+
+  </div>
+  <div class="mb-3">
+    <label for="uName" class="form-label">User Name</label>
+    <input type="text" class="form-control" id="uName" name="Name" formControlName="Name" placeholder="Islam Mohammed">
+    @if (Name?.touched&&Name?.invalid) {
+    <div class="text-danger mt-1">
+      @if (Name?.errors?.['required']) {
+      <p>Field Is Required</p>
+      }
+      @if (Name?.errors?.['pattern']) {
+      <p>Field Must Be At Least 2 chars At Most 25 Char</p>
+      }
+    </div>
+    }
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="email" name="Email" formControlName="Email"
+      placeholder="name@example.com">
+    @if (Email?.touched&&Email?.invalid) {
+    <div class="text-danger mt-1">
+      @if (Email?.errors?.['required']) {
+      <p>Field Is Required</p>
+      }
+      @if (Email?.errors?.['email']) {
+      <p>Field Must be valid Email</p>
+      }
+    </div>
+    }
+  </div>
+  <ng-container formGroupName="Addrees">
+    <div class="mb-3">
+      <label for="City" class="form-label">City</label>
+      <input type="text" class="form-control" id="City" name="City" formControlName="City" placeholder="Nasr City">
+      @if (City?.touched&&City?.invalid) {
+      <div class="text-danger mt-1">
+        @if (City?.errors?.['required']) {
+        <p>Field Is Required</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="mb-3">
+      <label for="Street" class="form-label">Street</label>
+      <input type="text" class="form-control" id="Street" name="Street" formControlName="Street"
+        placeholder="عباس العقاد ">
+      @if (Street?.touched&&Street?.invalid) {
+      <div class="text-danger mt-1">
+        @if (Street?.errors?.['required']) {
+        <p>Field Is Required</p>
+        }
+      </div>
+      }
+    </div>
+  </ng-container>
+
+
+  <div class="mb-3">
+    <label for="Notes" class="form-label">Notes</label>
+    <textarea class="form-control" formControlName="Notes" id="Notes" rows="3"></textarea>
+  </div>
+
+  @for(phone of Phones.controls; track $index; let i = $index;){
+  <div formArrayName="Phones" class="d-flex">
+    <div class="mb-3 col-md-10">
+      <label for="Phone{{i}}" class="form-label">Phone Number ({{i+1}})</label>
+      <input type="text" class="form-control" formControlName="{{i}}" id="Phone{{i}}" placeholder="01127414507">
+      @if (phone?.touched&&phone?.invalid) {
+      <div class="text-danger mt-1">
+        @if (phone?.errors?.['required']) {
+        <p>Field Is Required</p>
+        }
+        @if (phone?.errors?.['pattern']) {
+        <p>Field Must be Correct Phone Number</p>
+        }
+      </div>
+      }
+    </div>
+    <div class="col-md-2    align-self-center  text-center">
+      @if(Phones.length<=2) {<button class="btn btn-dark mx-2" type="button" (click)="AddPhoneNumber()">+</button>}
+        @if(Phones.length>1) {<button class="btn btn-dark" type="button" (click)="RemovePhoneNumber(i)">-</button>}
+    </div>
+  </div>
+  }
+
+
+  <button type="submit" class="btn btn-outline-success form-control" [disabled]="userMessageForm.invalid">Save</button>
+
+</form>

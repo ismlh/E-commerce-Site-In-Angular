@@ -1,0 +1,32 @@
+@if (prdDetalis && category) {
+
+<div class="container mt-5">
+  <div class="row">
+    <!-- Product Image -->
+    <div class="col-md-6 mb-4">
+      <img [src]="prdDetalis.imageUrl" alt="Product" width="75%" class="img-fluid rounded mb-3 product-image"
+        id="mainImage">
+    </div>
+
+    <!-- Product Details -->
+    <div class="col-md-6">
+      <h2 class="mb-3">Product Name : {{prdDetalis.Name}}</h2>
+      <h4 class="mb-3">Category : {{category.Name}}</h4>
+      <p class="text-muted mb-4"> Quantity {{prdDetalis.quantity}}</p>
+      <div class="mb-3">
+        <span class="h4 me-2">{{prdDetalis.price | currency}}</span>
+        <span class="text-muted"><s>$399.99</s></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <button class="btn btn-outline-info form-control" (click)="Next()">Next</button>
+  <button class="btn btn-outline-info form-control my-3" (click)="Prev()">Prev</button>
+  <button class="btn btn-outline-info form-control" (click)="Back()">Back</button>
+
+</div>
+}
+@else{
+<p>Not Found</p>
+}

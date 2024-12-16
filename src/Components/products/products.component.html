@@ -1,0 +1,102 @@
+<button class="btn btn-outline-success mb-4 form-control " data-bs-toggle="modal" data-bs-target="#exampleModal"> Add
+  New
+  Product</button>
+<table class="table table-hover">
+  <thead class="text-center">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Image</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    @for (prd of products; track prd.id) {
+    <tr>
+
+      <th scope="row">{{prd.id}}</th>
+      <td>{{prd.Name}}</td>
+      <td>{{prd.catid}}</td>
+      <td>{{prd.price}}</td>
+      <td>{{prd.quantity}}</td>
+      <td><img [src]="prd.imageUrl" alt="" width="40px" height="40px"></td>
+      <td><button class="btn btn-outline-info form-control" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="Edit(prd.id)">Edit</button></td>
+      <td><button class="btn btn-outline-danger form-control" (click)="deletePrd(prd.id)">Delete</button></td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+
+
+
+<div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-center fw-bolder" id="exampleModalLabel">New Product</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #prdForm="ngForm" (ngSubmit)="addNewProduct()">
+          <div class="mb-3">
+            <label for="ID" class="form-label">ID</label>
+            <input type="text" [disabled]="EditButton" class="form-control my-1" placeholder="Product ID" #id="ngModel"
+              pattern="^[0-9]+$" required [(ngModel)]="newProduct.id" name="id" />
+            <div *ngIf="id.invalid && id.touched">
+              <div *ngIf="id.errors?.['required']">Product ID is required.</div>
+              <div *ngIf="id.errors?.['pattern']">Product ID must be numeric.</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Name" class="form-label">Product Name</label>
+            <input type="text" class="form-control my-1" placeholder="Product Name" #Name="ngModel"
+              pattern="^[a-zA-Z\d\s]{3,20}$" required [(ngModel)]="newProduct.Name" name="Name" />
+            <div *ngIf="Name.invalid && Name.touched ">
+              <div *ngIf="Name.errors?.['required']">Product Name is required.</div>
+              <div *ngIf="Name.errors?.['pattern']">Product Name must be at least 3 chars and at most 15 Char</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Price" class="form-label">Product Price</label>
+            <input type="number" class="form-control my-1" placeholder="Product Price" #Price="ngModel"
+              pattern="^\d+(\.\d{1,2})?$" required [(ngModel)]="newProduct.price" name="price" />
+            <div *ngIf="Price.invalid && Price.touched">
+              <div *ngIf="Price.errors?.['required']">Price is required.</div>
+              <div *ngIf="Price.errors?.['pattern']">Price can,t be negative val</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Quantity" class="form-label">Product Quantity</label>
+            <input type="number" class="form-control my-1" placeholder="Product Quantity" #Quantity="ngModel"
+              pattern="^[1-9]\d*(\.\d{1,2})?$" required [(ngModel)]="newProduct.quantity" name="quantity" />
+            <div *ngIf="Quantity.invalid && Quantity.touched">
+              <div *ngIf="Quantity.errors?.['required']">Quantity is required.</div>
+              <div *ngIf="Quantity.errors?.['pattern']">Quantity can,t be negative val or 0</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="Category" class="form-label">Product Category</label>
+            <select class="form-select form-select-lg" required [(ngModel)]="newProduct.catid" name="catid"
+              id="Category">
+              @for(cat of categories;track cat.id){
+              <option [value]="cat.id">{{cat.Name}}</option>
+              }
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-outline-success form-control" [disabled]="prdForm.invalid"
+              data-bs-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-outline-danger form-control" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

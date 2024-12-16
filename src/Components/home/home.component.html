@@ -1,0 +1,50 @@
+<div>
+  @if (totalOrderPrice!=0) {
+  <h2>Total Order Price : {{totalOrderPrice}}</h2>
+  }
+  <div class="mb-3" *ngIf="categories.length>=1">
+    <label for="" class="form-label">Category</label>
+    <select class="form-select form-select-lg" name="" id="" [(ngModel)]="selectedCatId">
+      <option selected value="0">All</option>
+      <!-- two way binding -->
+      <option *ngFor="let cat of categories" [value]="cat.id">{{cat.Name}}</option>
+      <!-- proprty binding -->
+    </select>
+  </div>
+
+  <app-order (dataEmitter)="receiveData($event)" [recievedCatId]="selectedCatId"></app-order>
+</div>
+
+<h2 class="text-center text-md-start" *ngIf="userMessages.length>=1">Messages</h2>
+<carousel [itemsPerSlide]="itemsPerSlide" [singleSlideOffset]="singleSlideOffset" [noWrap]="noWrap">
+  <slide *ngFor="let msg of userMessages; let index=index">
+    <div class="card ">
+      <div class="card-body   text-center shadow">
+        <h5 class="card-title ">User Name : {{msg.Name}}</h5>
+        <h6 class="card-subtitle mb-2">Address : {{msg.Addrees.City}} City , شارع {{msg.Addrees.Street}}</h6>
+        <p class="card-text">Email : {{msg.Email}}</p>
+        <p class="card-text">Notes : {{msg.Notes}}</p>
+        <p class="card-text">Phone Numbers : {{msg.Phones}}</p>
+      </div>
+    </div>
+  </slide>
+</carousel>
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="large" color="#fff" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+
+<!-- @for (msg of userMessages; track $index) {
+<div class="item  text-center shadow" carouselSlide>
+  <h2 class="fw-bolder">User Name : {{msg.Name}}</h2>
+  <p class="lead">Addrees : {{msg.Addrees.Street }} <span>,</span> {{msg.Addrees.City }} City</p>
+  <p class="lead">Email : {{msg.Email}}</p>
+  <p class="lead">Notes : {{msg.Notes}}</p>
+  Phones :
+  @for (phone of msg.Phones; track $index) {
+  <span>{{phone}} </span>
+  }
+</div>
+} -->
